@@ -1,3 +1,4 @@
+import { StatCard } from './components/StatCard'
 import { usePolkadot } from './hooks/usePolkadot'
 
 function App() {
@@ -20,14 +21,31 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-950 text-white p-8">
+    <div className="min-h-screen bg-gray-950 text-white p-8 max-w-7xl mx-auto">
       <h1 className="text-4xl font-bold text-pink-400 mb-8">
         Polkadot AI Explorer
       </h1>
-      <div>
-        <p>Block: {chainData?.blockNumber}</p>
-        <p>Hash: {chainData?.blockHash}</p>
-        <p>Validators: {chainData?.validators}</p>
+      <div className="grid grid-cols-4 gap-4">
+        <StatCard
+          title="Aktueller Block"
+          value={chainData?.blockNumber.toLocaleString() ?? 0}
+          icon="📦"
+        />
+        <StatCard
+          title="Validators"
+          value={chainData?.validators ?? 0}
+          icon="👥"
+        />
+        <StatCard
+          title="Transaktionen"
+          value={chainData?.transactions ?? 0}
+          icon="⚡"
+        />
+        <StatCard
+          title="Block Hash"
+          value={`${chainData?.blockHash.slice(0, 10)}...`}
+          icon="🔗"
+        />
       </div>
     </div>
   )
