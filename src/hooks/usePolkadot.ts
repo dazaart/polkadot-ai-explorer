@@ -17,7 +17,8 @@ export function usePolkadot() {
   useEffect(() => {
     const connect = async () => {
       try {
-        const provider = new WsProvider('wss://rpc.polkadot.io')
+        const provider = new WsProvider('wss://rpc.ibp.network/polkadot')
+        // const provider = new WsProvider('wss://polkadot.api.onfinality.io/public-ws')
         const api = await ApiPromise.create({ provider })
 
         api.rpc.chain.subscribeNewHeads(async (header) => {

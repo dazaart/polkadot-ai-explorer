@@ -3,11 +3,13 @@ import { StatCard } from './components/StatCard'
 import { usePolkadot } from './hooks/usePolkadot'
 import { BlockChart, type BlockPoint } from './components/BlockChart'
 import { useDotPrice } from './hooks/useDotPrice'
+import { useNetworkHealth } from './hooks/useNetworkHealth'
 
 function App() {
-  const { chainData, loading, error } = usePolkadot()
+  const { api, chainData, loading, error } = usePolkadot()
   const [blockHistory, setBlockHistory] = useState<BlockPoint[]>([])
   const { dotPrice } = useDotPrice()
+  const { health } = useNetworkHealth(api)
 
   useEffect(() => {
     if (chainData) {
@@ -78,6 +80,16 @@ function App() {
               : '...'
           }
           icon={dotPrice && dotPrice.change24h >= 0 ? '📈' : '📉'}
+        />
+        <StatCard
+          title="Peers"
+          value={health ? health.peers : '...'}
+          icon="🌐"
+        />
+        <StatCard
+          title="Status"
+          value={health ? (health.isSyncing ? 'Syncing...' : 'Live ✅') : '...'}
+          icon="💡"
         />
       </div>
       <BlockChart data={blockHistory} />

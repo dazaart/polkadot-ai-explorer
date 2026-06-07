@@ -15,6 +15,7 @@ export function useDotPrice() {
           'https://api.coingecko.com/api/v3/simple/price?ids=polkadot&vs_currencies=usd&include_24hr_change=true',
         )
         const data = await response.json()
+        console.log(' useDotPrice data : ', data)
         setDotPrice({
           price: data.polkadot.usd,
           change24h: data.polkadot.usd_24h_change,
