@@ -1,8 +1,30 @@
+import { useEffect, useState } from 'react'
 import { StatCard } from './components/StatCard'
 import { usePolkadot } from './hooks/usePolkadot'
+import { BlockChart, type BlockPoint } from './components/BlockChart'
 
 function App() {
   const { chainData, loading, error } = usePolkadot()
+  const [blockHistory, setBlockHistory] = useState<BlockPoint[]>([])
+
+  useEffect(() => {
+    if (chainData) {
+      setBlockHistory((prev) => {
+        const alreadyExists = prev.some(
+          (b) => b.block === chainData.blockNumber,
+        )
+        if (alreadyExists) return prev
+        const updated = [
+          ...prev,
+          {
+            block: chainData.blockNumber,
+            transactions: chainData.transactions,
+          },
+        ]
+        return updated.slice(-20)
+      })
+    }
+  }, [chainData])
 
   if (loading) {
     return (
@@ -47,6 +69,7 @@ function App() {
           icon="🔗"
         />
       </div>
+      <BlockChart data={blockHistory} />
     </div>
   )
 }
