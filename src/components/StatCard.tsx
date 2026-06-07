@@ -1,7 +1,9 @@
+import type { ReactNode } from 'react'
+
 type Props = {
   title: string
-  value: string | number
-  icon: string
+  value: string | number | ReactNode
+  icon: string | ReactNode
 }
 
 export function StatCard({ title, value, icon }: Props) {

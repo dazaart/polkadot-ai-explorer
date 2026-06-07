@@ -4,6 +4,8 @@ import { usePolkadot } from './hooks/usePolkadot'
 import { BlockChart, type BlockPoint } from './components/BlockChart'
 import { useDotPrice } from './hooks/useDotPrice'
 import { useNetworkHealth } from './hooks/useNetworkHealth'
+import { Header } from './components/Header'
+import { Section } from './components/Section'
 
 function App() {
   const { api, chainData, loading, error } = usePolkadot()
@@ -47,52 +49,77 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-950 text-white p-8 max-w-7xl mx-auto">
-      <h1 className="text-4xl font-bold text-pink-400 mb-8">
-        Polkadot AI Explorer
-      </h1>
-      <div className="grid grid-cols-5 gap-4">
-        <StatCard
-          title="Aktueller Block"
-          value={chainData?.blockNumber.toLocaleString() ?? 0}
-          icon="📦"
-        />
-        <StatCard
-          title="Validators"
-          value={chainData?.validators ?? 0}
-          icon="👥"
-        />
-        <StatCard
-          title="Transaktionen"
-          value={chainData?.transactions ?? 0}
-          icon="⚡"
-        />
-        <StatCard
-          title="Block Hash"
-          value={`${chainData?.blockHash.slice(0, 10)}...`}
-          icon="🔗"
-        />
-        <StatCard
-          title="DOT Preis"
-          value={
-            dotPrice
-              ? `$${dotPrice.price.toFixed(2)} (${dotPrice.change24h >= 0 ? '+' : ''}${dotPrice.change24h.toFixed(2)}%)`
-              : '...'
-          }
-          icon={dotPrice && dotPrice.change24h >= 0 ? '📈' : '📉'}
-        />
-        <StatCard
-          title="Peers"
-          value={health ? health.peers : '...'}
-          icon="🌐"
-        />
-        <StatCard
-          title="Status"
-          value={health ? (health.isSyncing ? 'Syncing...' : 'Live ✅') : '...'}
-          icon="💡"
-        />
-      </div>
-      <BlockChart data={blockHistory} />
+    <div className="min-h-screen bg-white text-black">
+      <Header live={!!health} />
+      <main className="px-12 py-10">
+        <div className="flex items-center gap-3">
+          <h2 className="font-bold text-xl">Relay Chain</h2>
+        </div>
+        <Section cols={4} title="Live Network">
+          <StatCard
+            title="Aktueller Block"
+            value={chainData?.blockNumber.toLocaleString() ?? 0}
+            icon="📦"
+          />
+          <StatCard
+            title="Validators"
+            value={chainData?.validators ?? 0}
+            icon="👥"
+          />
+          <StatCard
+            title="Transaktionen"
+            value={chainData?.transactions ?? 0}
+            icon="⚡"
+          />
+          <StatCard
+            title="Block Hash"
+            value={`${chainData?.blockHash.slice(0, 10)}...`}
+            icon="🔗"
+          />
+        </Section>
+
+        <Section title="Market" cols={4}>
+          <StatCard
+            title="DOT Preis"
+            value={
+              dotPrice
+                ? `$${dotPrice.price.toFixed(2)} (${dotPrice.change24h >= 0 ? '+' : ''}${dotPrice.change24h.toFixed(2)}%)`
+                : '...'
+            }
+            icon={dotPrice && dotPrice.change24h >= 0 ? '📈' : '📉'}
+          />
+        </Section>
+
+        <Section title="Network Health" cols={4}>
+          <StatCard
+            title="Peers"
+            value={health ? health.peers : '...'}
+            icon="🌐"
+          />
+          <StatCard
+            title="Status"
+            value={
+              health ? (
+                health.isSyncing ? (
+                  'Syncing...'
+                ) : (
+                  <div className="flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse "></span>
+                    <span className="mx-2">Live</span>
+                  </div>
+                )
+              ) : (
+                '...'
+              )
+            }
+            icon="💡"
+          />
+        </Section>
+
+        <Section title="Activity" cols={1}>
+          <BlockChart data={blockHistory} />
+        </Section>
+      </main>
     </div>
   )
 }
