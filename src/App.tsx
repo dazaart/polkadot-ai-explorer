@@ -2,10 +2,12 @@ import { useEffect, useState } from 'react'
 import { StatCard } from './components/StatCard'
 import { usePolkadot } from './hooks/usePolkadot'
 import { BlockChart, type BlockPoint } from './components/BlockChart'
+import { useDotPrice } from './hooks/useDotPrice'
 
 function App() {
   const { chainData, loading, error } = usePolkadot()
   const [blockHistory, setBlockHistory] = useState<BlockPoint[]>([])
+  const { dotPrice } = useDotPrice()
 
   useEffect(() => {
     if (chainData) {
@@ -47,7 +49,7 @@ function App() {
       <h1 className="text-4xl font-bold text-pink-400 mb-8">
         Polkadot AI Explorer
       </h1>
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid grid-cols-5 gap-4">
         <StatCard
           title="Aktueller Block"
           value={chainData?.blockNumber.toLocaleString() ?? 0}
@@ -67,6 +69,15 @@ function App() {
           title="Block Hash"
           value={`${chainData?.blockHash.slice(0, 10)}...`}
           icon="🔗"
+        />
+        <StatCard
+          title="DOT Preis"
+          value={
+            dotPrice
+              ? `$${dotPrice.price.toFixed(2)} (${dotPrice.change24h >= 0 ? '+' : ''}${dotPrice.change24h.toFixed(2)}%)`
+              : '...'
+          }
+          icon={dotPrice && dotPrice.change24h >= 0 ? '📈' : '📉'}
         />
       </div>
       <BlockChart data={blockHistory} />
