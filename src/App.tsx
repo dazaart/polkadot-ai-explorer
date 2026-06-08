@@ -38,7 +38,7 @@ function App() {
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-950 text-white flex items-center justify-center">
-        <p className="text-xl">Verbinde mit Polkadot...</p>
+        <p className="text-xl">Connecting to Polkadot...</p>
       </div>
     )
   }
