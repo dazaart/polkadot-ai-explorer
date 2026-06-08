@@ -4,6 +4,8 @@ A live dashboard for exploring the Polkadot blockchain network, powered by AI an
 
 Built as a portfolio project to demonstrate real-time blockchain data visualization and AI integration.
 
+**[→ Live Demo](https://polkadot-ai-explorer.vercel.app/)**
+
 ![Polkadot AI Explorer Screenshot](https://snipboard.io/mUq96H.jpg)
 
 ## Features
