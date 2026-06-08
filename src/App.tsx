@@ -79,7 +79,7 @@ function App() {
         <Section cols={4} title="Live Network">
           <StatCard
             title="Current Block"
-            value={chainData?.blockNumber.toLocaleString() ?? 0}
+            value={chainData?.blockNumber.toLocaleString('en-US') ?? 0}
             icon="📦"
           />
           <StatCard
