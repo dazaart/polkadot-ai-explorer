@@ -125,7 +125,7 @@ function App() {
                   'Syncing...'
                 ) : (
                   <div className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse "></span>
+                    <span className="w-2 h-2 rounded-full bg-pink-500 animate-pulse "></span>
                     <span className="mx-2">Live</span>
                   </div>
                 )

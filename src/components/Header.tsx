@@ -11,7 +11,7 @@ export function Header({ live }: Props) {
       </div>
       {live && (
         <div className="flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+          <span className="w-2 h-2 rounded-full bg-pink-500 animate-pulse"></span>
           <span className="text-sm text-gray-500">Live</span>
         </div>
       )}
