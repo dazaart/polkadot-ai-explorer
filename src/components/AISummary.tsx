@@ -76,7 +76,7 @@ export function AiSummary({
 Important context: This data is from the Polkadot Relay Chain, not a parachain. The relay chain intentionally has low transaction 
 volume as it primarily handles consensus and validator coordination. Most user transactions happen on parachains like Asset Hub. 
 
-Current block: ${blockNumber}
+Current block: ${blockNumber}, please use locale for better readability, 
 Validators: ${validators}
 Current transactions: ${transactions}
 Average transactions (last ${blockHistory.length} blocks): ${avgTxns.toFixed(1)}
