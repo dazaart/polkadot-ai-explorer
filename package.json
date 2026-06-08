@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.24.1",
     "@polkadot/api": "^16.5.6",
     "@tailwindcss/vite": "^4.3.0",
     "react": "^19.2.6",

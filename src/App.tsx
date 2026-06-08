@@ -6,12 +6,15 @@ import { useDotPrice } from './hooks/useDotPrice'
 import { useNetworkHealth } from './hooks/useNetworkHealth'
 import { Header } from './components/Header'
 import { Section } from './components/Section'
+import { AiSummary } from './components/AISummary'
+import { ApiKeyInput } from './components/ApiKeyInput'
 
 function App() {
   const { api, chainData, loading, error } = usePolkadot()
   const [blockHistory, setBlockHistory] = useState<BlockPoint[]>([])
   const { dotPrice } = useDotPrice()
   const { health } = useNetworkHealth(api)
+  const [apiKey, setApiKey] = useState<string>('')
 
   useEffect(() => {
     if (chainData) {
@@ -55,9 +58,27 @@ function App() {
         <div className="flex items-center gap-3">
           <h2 className="font-bold text-xl">Relay Chain</h2>
         </div>
+        <Section title="AI Summary" cols={1}>
+          <div>
+            {!apiKey && (
+              <div className="mb-4">
+                <ApiKeyInput onKeySet={setApiKey} />
+              </div>
+            )}
+            <AiSummary
+              blockNumber={chainData?.blockNumber ?? 0}
+              validators={chainData?.validators ?? 0}
+              transactions={chainData?.transactions ?? 0}
+              dotPrice={dotPrice?.price ?? 0}
+              blockHistory={blockHistory}
+              apiKey={apiKey}
+            />
+          </div>
+        </Section>
+
         <Section cols={4} title="Live Network">
           <StatCard
-            title="Aktueller Block"
+            title="Current Block"
             value={chainData?.blockNumber.toLocaleString() ?? 0}
             icon="📦"
           />
@@ -67,7 +88,7 @@ function App() {
             icon="👥"
           />
           <StatCard
-            title="Transaktionen"
+            title="Transactions"
             value={chainData?.transactions ?? 0}
             icon="⚡"
           />
@@ -80,7 +101,7 @@ function App() {
 
         <Section title="Market" cols={4}>
           <StatCard
-            title="DOT Preis"
+            title="DOT Price"
             value={
               dotPrice
                 ? `$${dotPrice.price.toFixed(2)} (${dotPrice.change24h >= 0 ? '+' : ''}${dotPrice.change24h.toFixed(2)}%)`
