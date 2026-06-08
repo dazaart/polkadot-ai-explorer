@@ -1,73 +1,46 @@
-# React + TypeScript + Vite
+# Polkadot AI Explorer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A live dashboard for exploring the Polkadot blockchain network, powered by AI analysis.
 
-Currently, two official plugins are available:
+Built as a portfolio project to demonstrate real-time blockchain data visualization and AI integration.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+![Polkadot AI Explorer Screenshot](https://snipboard.io/mUq96H.jpg)
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Live Chain Data** – Real-time block number, validators, transactions, and block hash via WebSocket connection to the Polkadot network
+- **Transaction Chart** – Visual history of the last 20 blocks with transaction activity
+- **DOT Price** – Live DOT/USD price and 24h change via CoinGecko API
+- **Network Health** – Connected peers and node sync status
+- **AI Summary** – On-demand network analysis powered by Claude (Anthropic)
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- React + TypeScript
+- Vite
+- Tailwind CSS
+- Polkadot.js API
+- Recharts
+- Anthropic Claude API
+- CoinGecko API
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Getting Started
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+git clone https://github.com/YOUR_USERNAME/polkadot-ai-explorer
+cd polkadot-ai-explorer
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## AI Feature
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+The AI summary feature requires an Anthropic API key. You can get one at [console.anthropic.com](https://console.anthropic.com).
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Enter your key directly in the app – it will be saved in your browser's local storage.
+
+## Data Sources
+
+- Chain data: Polkadot public RPC (`wss://rpc.polkadot.io`)
+- Price data: CoinGecko public API
+- AI analysis: Anthropic Claude API (user-provided key)
