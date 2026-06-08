@@ -71,15 +71,18 @@ export function AiSummary({
           messages: [
             {
               role: 'user',
-              content: `You are a Polkadot network analyst. Analyze this data and write a 2-3 sentence summary in English. Be concise and insightful.
-              
+              content: `You are a Polkadot network analyst. Analyze this data and write a 2-3 sentence summary in English. Be concise and insightful. Do not use markdown formatting, headers, or bullet points. Plain text only.
+
+Important context: This data is from the Polkadot Relay Chain, not a parachain. The relay chain intentionally has low transaction 
+volume as it primarily handles consensus and validator coordination. Most user transactions happen on parachains like Asset Hub. 
+
 Current block: ${blockNumber}
 Validators: ${validators}
 Current transactions: ${transactions}
 Average transactions (last ${blockHistory.length} blocks): ${avgTxns.toFixed(1)}
 DOT price: $${dotPrice}
 
-Focus on network health and any notable patterns.  Do not use markdown formatting, headers, or bullet points. Plain text only`,
+Do not use markdown formatting, headers, or bullet points. Plain text only. Thanks!`,
             },
           ],
         }),
